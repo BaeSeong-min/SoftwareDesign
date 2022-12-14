@@ -1,0 +1,212 @@
+import java.util.*;
+import ui.*;
+import manage.*;
+
+public class Main {
+	public static void main(String[] args) {		
+		int inputNum;
+		
+		Scanner scan = new Scanner(System.in);
+		
+		if(args.length == 0) {
+			System.out.println("There is no parameter.\n");
+		}
+		
+		else {
+			for(int idx = 0; idx < args.length; idx++) {
+				if(args[idx].equals("signUp")) {
+					SignUpUI sui = new SignUpUI();
+					ViewKindergartenUI kui = new ViewKindergartenUI();
+					ViewClassUI cui = new ViewClassUI();
+					
+					System.out.println("id : ");
+					sui.setId(scan.nextLine());
+					System.out.println("ps : ");
+					sui.setPs(scan.nextLine());
+					System.out.println("name : ");
+					sui.setPhoneNum(scan.nextLine());
+					System.out.println("phoneNum : ");
+					sui.setPhoneNum(scan.nextLine());
+					System.out.println("role : ");
+					sui.setRole(scan.nextLine());
+					
+					kui.showKindergarten();
+					System.out.println("input belonging kindergartenName : ");
+					sui.setBelongingKindergarten(scan.nextLine());
+					
+					cui.showClass();
+					System.out.println("input belonging className : ");
+					sui.setBelongingClass(scan.nextLine());
+					
+					sui.signUpForNormal(sui);
+				}
+				else if(args[idx].equals("signUpForPrincipal")) {
+					SignUpPrincipalUI pui = new SignUpPrincipalUI();
+					ViewKindergartenUI kui = new ViewKindergartenUI();
+					ViewClassUI cui = new ViewClassUI();
+					
+					System.out.println("id : ");
+					pui.setId(scan.nextLine());
+					System.out.println("ps : ");
+					pui.setPs(scan.nextLine());
+					System.out.println("name : ");
+					pui.setPhoneNum(scan.nextLine());
+					System.out.println("phoneNum : ");
+					pui.setPhoneNum(scan.nextLine());
+					System.out.println("role : ");
+					pui.setRole(scan.nextLine());
+					
+					System.out.println("input kindergartenName to register : ");
+					pui.setRegisterKindergarten(scan.nextLine());
+					pui.registerKindergarten();
+					kui.showKindergarten();
+					
+					System.out.println("input className to register : ");
+					pui.setRegisterClass(scan.nextLine());
+					pui.registerClass();
+					cui.showClass();
+					
+					pui.signUp(pui);
+				}
+				else if(args[idx].equals("acceptAdmission")) {
+					String tmp;
+					AdmissionUI aui = new AdmissionUI();
+					aui.showWaiterList();
+					
+					System.out.println("select kid name to approve : ");
+					aui.admitWaiter(scan.nextLine());
+				}
+				else if(args[idx].equals("logIn")) {
+					SignInUI iui = new SignInUI();
+					ManageSignIn msi = new ManageSignIn();
+					System.out.println("input id : ");
+					iui.setId(scan.nextLine());
+					System.out.println("input ps : ");
+					iui.setPs(scan.nextLine());
+					msi.checkAccount(iui.getId(), iui.getPs());
+				}
+				else if(args[idx].equals("logOut")) {
+					SignOutUI oui = new SignOutUI();
+					oui.signOutRequest();
+				}
+				else if(args[idx].equals("writeReport")) {
+					WritingReportUI rui = new WritingReportUI();
+					ViewClassUI cui = new ViewClassUI();
+					ManageClass mc = new ManageClass();
+					ArrayList<String>status = new ArrayList<String>();
+					
+					System.out.println("input date : ");
+					rui.setReportDate(scan.nextLine());
+					cui.showClass();
+					
+					System.out.println("input class : ");
+					mc.requestKidsList(scan.nextLine());
+					
+					System.out.println("input receiver : ");
+					rui.setReportReceiver(scan.nextLine());;
+					System.out.println("input content : ");
+					rui.setReportContent(scan.nextLine());
+					System.out.println("input kids status");
+					System.out.println("(1)feeling : ");
+					status.add(scan.nextLine());
+					System.out.println("(2)health : ");
+					status.add(scan.nextLine());
+					System.out.println("(3)temperature : ");
+					status.add(scan.nextLine());
+					System.out.println("(4)eating : ");
+					status.add(scan.nextLine());
+					System.out.println("(5)sleep time : ");
+					status.add(scan.nextLine());
+					System.out.println("(6)defecation status : ");
+					status.add(scan.nextLine());
+					
+					rui.sendReport(rui);	
+				}
+				else if(args[idx].equals("checkReport")) {
+					ViewReportListUI rlui = new ViewReportListUI();
+					ViewReportUI vrui = new ViewReportUI();
+					rlui.showReportList();
+					
+					System.out.println("input date : ");
+					String tmp = scan.nextLine();
+					vrui.setReportDate(tmp);
+					vrui.showReport(tmp);
+				}
+				else if(args[idx].equals("writeNotice")) {
+					WritingNoticeUI nui = new WritingNoticeUI();
+					ViewClassUI cui = new ViewClassUI();
+					System.out.println("input num : ");
+					nui.setNoticeNum(scan.nextLine());
+					System.out.println("input content : ");
+					nui.setNoticeContent(scan.nextLine());
+					cui.showClass();
+					System.out.println("input receiver : ");
+					nui.setNoticeReceiver(scan.nextLine());
+					System.out.println("input title : ");
+					nui.setNoticeTitle(scan.nextLine());
+					
+					nui.sendNotice(nui);
+				}
+				else if(args[idx].equals("checkNotice")) {
+					ViewNoticeListUI nlui = new ViewNoticeListUI();
+					ViewNoticeUI nui = new ViewNoticeUI();
+					nlui.showNoticeList();
+					System.out.println("input num : ");
+					nui.showNotice(scan.nextLine());
+				}
+				else if(args[idx].equals("writeAttendance")) {
+					WritingAttendanceUI aui = new WritingAttendanceUI();
+					ViewClassUI cui = new ViewClassUI();
+					System.out.println("input date : ");
+					aui.setAttendanceDate(scan.nextLine());
+					cui.showClass();
+					System.out.println("input class : ");
+					aui.setAttendanceClass(scan.nextLine());
+					cui.showClassKid(aui.getAttendanceClass());
+					System.out.println("input attendance object : ");
+					aui.setAttendanceObject(scan.nextLine());
+					System.out.println("input attendance status : ");
+					aui.setAttendanceStatus(scan.nextLine());
+					
+					aui.sendAttendance(aui);
+				}
+				else if(args[idx].equals("checkAttendance")) {
+					ViewAttendanceUI aui = new ViewAttendanceUI();
+					ViewClassUI cui = new ViewClassUI();
+					cui.showClass();
+					System.out.println("input class : ");
+					aui.setAttendanceClass(scan.nextLine());
+					System.out.println("input date : ");
+					aui.setAttendanceDate(scan.nextLine());
+					aui.showAttendance();
+				}
+				else if(args[idx].equals("writeSchedule")) {
+					WritingScheduleUI sui = new WritingScheduleUI();
+					ViewClassUI cui = new ViewClassUI();
+					System.out.println("input date : ");
+					sui.setScheduleDate(scan.nextLine());
+					cui.showClass();
+					
+					System.out.println("input class : ");
+					sui.setScheduleClass(scan.nextLine());
+					System.out.println("input content : ");
+					sui.setScheduleContent(scan.nextLine());
+					sui.sendSchedule(sui);	
+				}
+				else if(args[idx].equals("checkSchedule")) {
+					ViewScheduleUI vsui = new ViewScheduleUI();
+					ViewClassUI vcui = new ViewClassUI();
+					vcui.showClass();
+					System.out.println("input class : ");
+					vsui.setScheduleClass(scan.nextLine());
+					System.out.println("input date : ");
+					vsui.setScheduleDate(scan.nextLine());
+					vsui.showSchedule();
+				}
+					
+			}
+		}
+		
+	}
+
+}
