@@ -1,9 +1,9 @@
 import java.util.*;
 import ui.*;
 import manage.*;
-
+import java.io.*;
 public class Main {
-	public static void main(String[] args) {		
+	public static void main(String[] args) throws IOException{		
 		int inputNum;
 		
 		Scanner scan = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Main {
 					System.out.println("ps : ");
 					sui.setPs(scan.nextLine());
 					System.out.println("name : ");
-					sui.setPhoneNum(scan.nextLine());
+					sui.setName(scan.nextLine());
 					System.out.println("phoneNum : ");
 					sui.setPhoneNum(scan.nextLine());
 					System.out.println("role : ");
@@ -50,19 +50,33 @@ public class Main {
 					System.out.println("ps : ");
 					pui.setPs(scan.nextLine());
 					System.out.println("name : ");
-					pui.setPhoneNum(scan.nextLine());
+					pui.setName(scan.nextLine());
 					System.out.println("phoneNum : ");
 					pui.setPhoneNum(scan.nextLine());
 					System.out.println("role : ");
 					pui.setRole(scan.nextLine());
 					
 					System.out.println("input kindergartenName to register : ");
-					pui.setRegisterKindergarten(scan.nextLine());
+					String tmp = scan.nextLine();
+					pui.setRegisterKindergarten(tmp);
 					pui.registerKindergarten();
 					kui.showKindergarten();
 					
-					System.out.println("input className to register : ");
-					pui.setRegisterClass(scan.nextLine());
+					pui.setBelongingClass("NONE");
+					ArrayList<String> tmpClass = new ArrayList<String>();
+					String input;
+					
+					
+					while(true){
+						System.out.println("input className to register : (if you want to stop, then input 'stop'");
+						input = scan.nextLine();
+						if(input.equals("stop")) {
+							break;
+						}
+						tmpClass.add(input);
+					}
+					
+					pui.setRegisterClass(tmpClass);
 					pui.registerClass();
 					cui.showClass();
 					
@@ -93,7 +107,7 @@ public class Main {
 					WritingReportUI rui = new WritingReportUI();
 					ViewClassUI cui = new ViewClassUI();
 					ManageClass mc = new ManageClass();
-					ArrayList<String>status = new ArrayList<String>();
+					ArrayList<String> tmp = new ArrayList<String>();
 					
 					System.out.println("input date : ");
 					rui.setReportDate(scan.nextLine());
@@ -108,18 +122,19 @@ public class Main {
 					rui.setReportContent(scan.nextLine());
 					System.out.println("input kids status");
 					System.out.println("(1)feeling : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					System.out.println("(2)health : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					System.out.println("(3)temperature : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					System.out.println("(4)eating : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					System.out.println("(5)sleep time : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					System.out.println("(6)defecation status : ");
-					status.add(scan.nextLine());
+					tmp.add(scan.nextLine());
 					
+					rui.setStatus(tmp);
 					rui.sendReport(rui);	
 				}
 				else if(args[idx].equals("checkReport")) {
@@ -140,7 +155,7 @@ public class Main {
 					System.out.println("input content : ");
 					nui.setNoticeContent(scan.nextLine());
 					cui.showClass();
-					System.out.println("input receiver : ");
+					System.out.println("input class : ");
 					nui.setNoticeReceiver(scan.nextLine());
 					System.out.println("input title : ");
 					nui.setNoticeTitle(scan.nextLine());

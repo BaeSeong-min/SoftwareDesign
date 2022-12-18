@@ -1,8 +1,10 @@
 package ui;
+import java.io.IOException;
+
 import manage.*;
 
 public class AdmissionUI extends UI{
-	public void showWaiterList() {
+	public void showWaiterList() throws IOException {
 		System.out.println("showWaiterList()");
 		ManageAdmission ma = new ManageAdmission();
 		ma.requestWaiterList();

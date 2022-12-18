@@ -2,9 +2,13 @@ package ui;
 
 import manage.*;
 
+import java.io.FileNotFoundException;
+import java.util.*;
+
 public class SignUpPrincipalUI extends SignUpCommonUI{
 	private String registerKindergarten;
-	private String registerClass;
+	private ArrayList<String> registerClass = new ArrayList<String>();
+	private String belongingClass; // tmp
 	
 	public void registerKindergarten() {
 		System.out.println("registerKindergarten()");
@@ -12,10 +16,10 @@ public class SignUpPrincipalUI extends SignUpCommonUI{
 		mk.kindergartenInsert(registerKindergarten);
 	}
 	
-	public void registerClass() {
+	public void registerClass() throws FileNotFoundException {
 		System.out.println("registerClass()");
 		ManageClass mc = new ManageClass();
-		mc.classInsert();
+		mc.classInsert(registerClass);
 	}
 
 	public String getRegisterKindergarten() {
@@ -26,11 +30,20 @@ public class SignUpPrincipalUI extends SignUpCommonUI{
 		this.registerKindergarten = registerKindergarten;
 	}
 
-	public String getRegisterClass() {
+
+	public String getBelongingClass() {
+		return belongingClass;
+	}
+
+	public void setBelongingClass(String belongingClass) {
+		this.belongingClass = belongingClass;
+	}
+
+	public ArrayList<String> getRegisterClass() {
 		return registerClass;
 	}
 
-	public void setRegisterClass(String registerClass) {
+	public void setRegisterClass(ArrayList<String> registerClass) {
 		this.registerClass = registerClass;
 	}
 }

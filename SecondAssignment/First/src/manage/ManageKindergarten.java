@@ -1,11 +1,13 @@
 package manage;
+import java.io.IOException;
+
 import dataStore.*;
 
 public class ManageKindergarten {
-	public void requestKindergarten() {
+	public void requestKindergarten() throws IOException {
 		System.out.println("requestKindergarten()");
 		DataStorage db = new DataStorage();
-		db.select(null);
+		db.select("kindergartenList", "kindergarten");
 	}
 	
 	public void kindergartenInsert(String kindergartenName) {

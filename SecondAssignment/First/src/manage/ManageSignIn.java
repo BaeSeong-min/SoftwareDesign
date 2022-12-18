@@ -1,14 +1,12 @@
 package manage;
 import dataStore.*;
+import java.io.*;
 
 public class ManageSignIn {
-	public void checkAccount(String id, String ps) {
+	public void checkAccount(String id, String ps) throws IOException{
 		System.out.println("checkAccount()");
-		int result;
+		
 		DataStorage db = new DataStorage();
-		result = db.checkExist(id, ps);
-		while(result != 1) {
-			result = db.checkExist(id, ps);
-		}
+		db.checkExist(id, ps);
 	}
 }

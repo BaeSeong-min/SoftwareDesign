@@ -1,4 +1,6 @@
 package manage;
+import java.io.IOException;
+
 import dataStore.*;
 import ui.*;
 
@@ -9,9 +11,9 @@ public class ManageAttendance {
 		db.insertAttendance(attendance);
 	}
 	
-	public void requestAttendance() {
+	public void requestAttendance() throws IOException {
 		System.out.println("requestAttendance()");
 		DataStorage db = new DataStorage();
-		db.select(null);
+		db.select(null, "attendance");
 	}
 }

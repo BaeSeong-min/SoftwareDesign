@@ -5,7 +5,7 @@ public class ReportUI extends UI{
 	private String reportDate;
 	private String reportContent;
 	private String reportReceiver;
-	private ArrayList<String> reportKidStatus = new ArrayList<String>();
+	private ArrayList<String>status = new ArrayList<String>();
 	
 	public String getReportDate() {
 		return reportDate;
@@ -25,10 +25,11 @@ public class ReportUI extends UI{
 	public void setReportReceiver(String reportReceiver) {
 		this.reportReceiver = reportReceiver;
 	}
-	public ArrayList<String> getReportKidStatus() {
-		return reportKidStatus;
+	
+	public ArrayList<String> getStatus() {
+		return status;
 	}
-	public void setReportKidStatus(ArrayList<String> reportKidStatus) {
-		this.reportKidStatus = reportKidStatus;
+	public void setStatus(ArrayList<String> status) {
+		this.status = status;
 	}
 }

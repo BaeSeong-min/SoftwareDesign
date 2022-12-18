@@ -1,4 +1,6 @@
 package manage;
+import java.io.IOException;
+
 import dataStore.*;
 
 public class ManageAdmission {
@@ -8,9 +10,9 @@ public class ManageAdmission {
 		db.approve(name);
 	}
 	
-	public void requestWaiterList() {
+	public void requestWaiterList() throws IOException {
 		System.out.println("requestWaiterList()");
 		DataStorage db = new DataStorage();
-		db.select(null);
+		db.select(null, "waiterList");
 	}
 }

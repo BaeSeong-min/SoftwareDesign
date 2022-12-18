@@ -1,4 +1,6 @@
 package manage;
+import java.io.IOException;
+
 import dataStore.*;
 import ui.*;
 
@@ -9,9 +11,9 @@ public class ManageSchedule {
 		db.insertSchedule(schedule);
 	}
 	
-	public void requestSchedule() {
+	public void requestSchedule() throws IOException {
 		System.out.println("requestSchedule()");
 		DataStorage db = new DataStorage();
-		db.select(null);
+		db.select(null, "Schedule");
 	}
 }
