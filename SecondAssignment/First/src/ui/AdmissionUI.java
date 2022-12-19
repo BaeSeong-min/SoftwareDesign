@@ -10,7 +10,7 @@ public class AdmissionUI extends UI{
 		ma.requestWaiterList();
 	}
 	
-	public void admitWaiter(String admitName) {
+	public void admitWaiter(String admitName) throws IOException {
 		System.out.println("admitWaiter()");
 		ManageAdmission ma = new ManageAdmission();
 		ma.requestAdmit(admitName);

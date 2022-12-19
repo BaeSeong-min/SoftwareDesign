@@ -7,7 +7,7 @@ public class ManageKindergarten {
 	public void requestKindergarten() throws IOException {
 		System.out.println("requestKindergarten()");
 		DataStorage db = new DataStorage();
-		db.select("kindergartenList", "kindergarten");
+		db.select(null, "kindergartenList"); // k name
 	}
 	
 	public void kindergartenInsert(String kindergartenName) {

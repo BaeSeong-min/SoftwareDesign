@@ -1,3 +1,0 @@
-sm4046 sm85504046 bae 01012345678 teacher gogo A
-sm2522 sm2522 song 01012341111 parent gogo A
-sm1111 sm1111 kim 01000001111 principal Okla NONE

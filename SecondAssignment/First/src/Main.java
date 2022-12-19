@@ -87,7 +87,7 @@ public class Main {
 					AdmissionUI aui = new AdmissionUI();
 					aui.showWaiterList();
 					
-					System.out.println("select kid name to approve : ");
+					System.out.println("select kid id to approve : ");
 					aui.admitWaiter(scan.nextLine());
 				}
 				else if(args[idx].equals("logIn")) {
@@ -221,7 +221,7 @@ public class Main {
 					
 			}
 		}
-		
+		scan.close();
 	}
 
 }

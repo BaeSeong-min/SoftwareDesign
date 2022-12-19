@@ -1,2 +1,0 @@
-FirstCommand 1 A hi
-SecondCommand 2 A Gucci

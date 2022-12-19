@@ -11,13 +11,13 @@ public class DataStorage {
 	private ArrayList<ScheduleUI> scheduleInfo = new ArrayList<ScheduleUI>();
 	private ArrayList<AttendanceUI> attendanceInfo = new ArrayList<AttendanceUI>();
 	private ArrayList<SignUpUI> admissionWaiterInfo = new ArrayList<SignUpUI>();
-	private ArrayList<String> classInfo = new ArrayList<String>();
 	private ArrayList<String> kinderInfo = new ArrayList<String>();
 
-	public void insertAccount(SignUpPrincipalUI newAccount) {
+	public void insertAccount(SignUpPrincipalUI newAccount) throws FileNotFoundException {
 		System.out.println("insertAccount()");
 		account.add(newAccount);
 		insertKindergarten(newAccount.getRegisterKindergarten());
+		insertClass(newAccount.getRegisterClass());
 		try {
 			File file = new File("Account.txt");
 			if(!file.exists()) {
@@ -36,8 +36,6 @@ public class DataStorage {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	public void insertAccountForNormal(SignUpUI newAccount) {
@@ -63,24 +61,37 @@ public class DataStorage {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			File file = new File(newAccount.getBelongingClass()+".txt");
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			writer.write(newAccount.getId()); 
+			writer.newLine();
+			writer.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void insertRequestion(SignUpUI newAccount) {
 		System.out.println("insertRequestion()");
 		admissionWaiterInfo.add(newAccount);
-		/*
+		
 		try {
-			File file = new File("kindergarten.txt");
+			File file = new File("waitingList.txt");
 			if(!file.exists()) {
 				file.createNewFile();
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(kindergartenName);
+			writer.write(newAccount.getId()); 
 			writer.newLine();
 			writer.close();
 		}catch(IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	public void insertKindergarten(String kindergartenName) {
@@ -92,7 +103,7 @@ public class DataStorage {
 			if(!file.exists()) {
 				file.createNewFile();
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(kindergartenName);
 			writer.newLine();
 			writer.close();
@@ -103,19 +114,28 @@ public class DataStorage {
 	
 	public void insertClass(ArrayList<String> className) throws FileNotFoundException{
 		System.out.println("insertClass()");
-		classInfo = className;
 
 		try {
-			File file = new File("class.txt");
+			File file = new File("classList.txt"); // r
 			if(!file.exists()) {
 				file.createNewFile();
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			
 			for(int i = 0; i < className.size(); i++) {
 				writer.write(className.get(i));
 				writer.newLine();
 			}
+			
+			for(int i = 0; i < className.size(); i++) { // 메모장 생성
+				File file2 = new File(className.get(i)+".txt");
+				if(!file2.exists()) {
+					file2.createNewFile();
+				} // 반 메모장만 생성
+				//BufferedWriter writer2 = new BufferedWriter(new FileWriter(file2, true));
+			}
+			
+			//for(int i = 0; ) 각가의 반에 대한 클래스 메모장 만들어서 그 안에다가 선생님, 아이들 계정 다 넣기
 			
 			writer.close();
 		}catch(IOException e) {
@@ -125,10 +145,18 @@ public class DataStorage {
 	
 	public void insertReport(ReportUI report) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("usingAccount.txt"));
+		Scanner sc2 = new Scanner(new File("waitingList.txt"));
 		
-		sc.next(); sc.next(); sc.next(); sc.next();
+		String id = sc.next(); sc.next(); sc.next(); sc.next();
 		String role = sc.next();
-		if("teacher".equals(role) || "principal".equals(role)) {
+		if(("teacher".equals(role) || "principal".equals(role))) {
+			while(sc2.hasNext()) {
+				if(sc2.next().equals(id)) {
+					System.out.println("you can't write any report untill accepted by principal");
+					System.exit(0);
+				}
+			}
+			
 			System.out.println("insertReport()");
 			reportInfo.add(report);
 			try {
@@ -221,7 +249,7 @@ public class DataStorage {
 				}
 				
 			}
-			String pass = sc.nextLine();
+			sc.nextLine();
 		}
 		if(i == 0) {
 			System.out.println("id or ps is incorrect");
@@ -229,13 +257,27 @@ public class DataStorage {
 		
 	}
 	
-	public void approve(String name) {
+	public void approve(String name) throws IOException {
 		System.out.println("approve()");
+		String msg;
+		BufferedReader br=new BufferedReader(new FileReader(new File("waitingList.txt")));
+		File file = new File("waitingList.txt");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		while((msg = br.readLine()) != null) {
+			if(!(msg.equals(name))) {
+				writer.write(msg);
+			}
+			writer.newLine();
+		}
+		
+		br.close();
+		writer.close();
+		/*
 		for(int i = 0; i < admissionWaiterInfo.size(); i++) {
 			if(name.equals(admissionWaiterInfo.get(i).getName())){
 				admissionWaiterInfo.remove(i);
 			}
-		}
+		}*/
 	}
 	
 	public void select(String list, String type) throws IOException{
@@ -245,7 +287,6 @@ public class DataStorage {
 			Scanner sc = new Scanner(new File("reportList.txt"));
 			Scanner sc2 = new Scanner(new File("usingAccount.txt"));
 			int i = 0;
-			sc2.next(); sc2.next(); 
 			String tmpRec = sc2.next();
 			while(sc.hasNext()) {
 				String date = sc.next();
@@ -267,9 +308,9 @@ public class DataStorage {
 		else if(type.equals("reportList")) {
 			Scanner sc = new Scanner(new File("reportList.txt"));
 			Scanner sc2 = new Scanner(new File("usingAccount.txt"));
+			
 			int i = 0;
-			sc2.next(); sc2.next();
-			String tmpRec = sc.next();
+			String tmpRec = sc2.next();
 			while(sc.hasNext()) {
 				String date = sc.next();
 				String receiver = sc.next();
@@ -277,9 +318,6 @@ public class DataStorage {
 				String status = sc.nextLine();
 				if(receiver.equals(tmpRec)) {
 					System.out.println("date: " + date);
-					System.out.println("receiver: " + receiver);
-					System.out.println("content: " + content);
-					System.out.println("Kid's status: " + status);
 					System.out.println("========================================\n");
 					++i;
 				}
@@ -352,7 +390,7 @@ public class DataStorage {
 			}
 		
 		else if(type.equals("classList")) {
-			Scanner sc = new Scanner(new File("class.txt"));
+			Scanner sc = new Scanner(new File("classList.txt"));
 			int i = 0;
 			while(sc.hasNext()) {
 				String className = sc.next();
@@ -363,5 +401,31 @@ public class DataStorage {
 			if(i == 0)
 				System.out.println("no class");
 			}
+		
+		else if(type.equals("classKidsList")) {
+			Scanner sc = new Scanner(new File(list +".txt"));
+			int i = 0;
+			while(sc.hasNext()) {
+				String className = sc.next();
+				System.out.println("className: " + className);
+				System.out.println("========================================\n");
+				++i;
+				}
+			if(i == 0)
+				System.out.println("no class");
+			}
+		else if(type.equals("waitingList")) {
+			Scanner sc = new Scanner(new File("waitingList.txt"));
+			int i = 0;
+			while(sc.hasNext()) {
+				String wid = sc.next();
+				System.out.println("waiting ID: " + wid);
+				System.out.println("========================================\n");
+				++i;
+				}
+			if(i == 0)
+				System.out.println("no class");
+			}
+		
 	}
 }

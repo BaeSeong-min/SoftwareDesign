@@ -1,4 +1,6 @@
 package ui;
+import java.io.FileNotFoundException;
+
 import manage.*;
 
 public class SignUpCommonUI extends UI{
@@ -8,7 +10,7 @@ public class SignUpCommonUI extends UI{
 	private String phoneNum;
 	private String role;
 	
-	public void signUp(SignUpPrincipalUI newAccount) {
+	public void signUp(SignUpPrincipalUI newAccount) throws FileNotFoundException {
 		System.out.println("signUp()");
 		
 		ManageSignUp ms = new ManageSignUp();
