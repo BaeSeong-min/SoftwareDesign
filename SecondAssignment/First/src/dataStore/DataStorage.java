@@ -25,15 +25,20 @@ public class DataStorage {
 				file.createNewFile();
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(newAccount.getId() + " ");
-			writer.write(newAccount.getPs() +" ");
-			writer.write(newAccount.getName() +" ");
-			writer.write(newAccount.getPhoneNum() +" ");
-			writer.write(newAccount.getRole() +" ");
-			writer.write(newAccount.getRegisterKindergarten() +" ");
-			writer.write(newAccount.getBelongingClass());
-			writer.newLine();
-			writer.close();
+			if(!(newAccount.getId().equals("")) && !(newAccount.getPs().equals("")) && !(newAccount.getName().equals("")) && !(newAccount.getPhoneNum().equals("")) && !(newAccount.getRole().equals("")) && !(newAccount.getRegisterKindergarten().equals("")) && !(newAccount.getBelongingClass().equals(""))) {
+				writer.write(newAccount.getId() + " ");
+				writer.write(newAccount.getPs() +" ");
+				writer.write(newAccount.getName() +" ");
+				writer.write(newAccount.getPhoneNum() +" ");
+				writer.write(newAccount.getRole() +" ");
+				writer.write(newAccount.getRegisterKindergarten() +" ");
+				writer.write(newAccount.getBelongingClass());
+				writer.newLine();
+				writer.close();
+			}
+			else {
+				System.out.println("Oops! Please input all items!");
+			}
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -50,15 +55,21 @@ public class DataStorage {
 				file.createNewFile();
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(newAccount.getId() + " ");
-			writer.write(newAccount.getPs() +" ");
-			writer.write(newAccount.getName() +" ");
-			writer.write(newAccount.getPhoneNum() +" ");
-			writer.write(newAccount.getRole() +" ");
-			writer.write(newAccount.getBelongingKindergarten() +" ");
-			writer.write(newAccount.getBelongingClass());
-			writer.newLine();
-			writer.close();
+			
+			if(!(newAccount.getId().equals("")) && !(newAccount.getPs().equals("")) && !(newAccount.getName().equals("")) && !(newAccount.getPhoneNum().equals("")) && !(newAccount.getRole().equals("")) && !(newAccount.getBelongingKindergarten().equals("")) && !(newAccount.getBelongingClass().equals(""))) {
+				writer.write(newAccount.getId() + " ");
+				writer.write(newAccount.getPs() +" ");
+				writer.write(newAccount.getName() +" ");
+				writer.write(newAccount.getPhoneNum() +" ");
+				writer.write(newAccount.getRole() +" ");
+				writer.write(newAccount.getBelongingKindergarten() +" ");
+				writer.write(newAccount.getBelongingClass());
+				writer.newLine();
+				writer.close();
+			}
+			else {
+				System.out.println("Oops! Please input all items!");
+			}
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -158,16 +169,22 @@ public class DataStorage {
 			reportInfo.add(report);
 			try {
 				File file = new File("reportList.txt");
-				if(!file.exists()) {
-					file.createNewFile();
-					}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-				writer.write(report.getReportDate() + " ");
-				writer.write(report.getReportReceiver() +" ");
-				writer.write(report.getReportContent() +" ");
-				writer.write(report.getStatus().get(0) + " " + report.getStatus().get(1) +  " " + report.getStatus().get(2)+report.getStatus().get(3) + " " + report.getStatus().get(4) +  " " + report.getStatus().get(5));
-				writer.newLine();
-				writer.close();
+				
+				if(!(report.getClass().equals("")) && !(report.getReportReceiver().equals("")) && report.getReportContent().length() < 5000) {
+					if(!file.exists()) {
+						file.createNewFile();
+						}
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+					writer.write(report.getReportDate() + " ");
+					writer.write(report.getReportReceiver() +" ");
+					writer.write(report.getReportContent() +" ");
+					writer.write(report.getStatus().get(0) + " " + report.getStatus().get(1) +  " " + report.getStatus().get(2)+report.getStatus().get(3) + " " + report.getStatus().get(4) +  " " + report.getStatus().get(5));
+					writer.newLine();
+					writer.close();
+				}
+				else {
+					System.out.println("Oops! Please input all items or input content in 5000 length");
+				}
 				}catch(IOException e) {
 					e.printStackTrace();
 					}
@@ -187,16 +204,22 @@ public class DataStorage {
 			noticeInfo.add(notice);
 			try {
 				File file = new File("noticeList.txt");
-				if(!file.exists()) {
-					file.createNewFile();
-					}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-				writer.write(notice.getNoticeTitle() + " ");
-				writer.write(notice.getNoticeNum() +" ");
-				writer.write(notice.getNoticeReceiver() +" ");
-				writer.write(notice.getNoticeContent());
-				writer.newLine();
-				writer.close();
+				
+				if(!(notice.getClass().equals("")) && !(notice.getNoticeNum().equals("")) && !(notice.getNoticeReceiver().equals("")) && !(notice.getNoticeTitle().equals("")) && notice.getNoticeContent().length() < 5000) {
+					if(!file.exists()) {
+						file.createNewFile();
+						}
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+					writer.write(notice.getNoticeTitle() + " ");
+					writer.write(notice.getNoticeNum() +" ");
+					writer.write(notice.getNoticeReceiver() +" ");
+					writer.write(notice.getNoticeContent());
+					writer.newLine();
+					writer.close();
+				}
+				else {
+					System.out.println("Oops! Please input all items or input content in 5000 length");
+				}
 				}catch(IOException e) {
 					e.printStackTrace();
 					}
@@ -217,14 +240,20 @@ public class DataStorage {
 			
 			try {
 				File file = new File(attendance.getAttendanceDate() + attendance.getAttendanceClass()+ "attendanceList.txt");
-				if(!file.exists()) {
-					file.createNewFile();
-					}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-				writer.write(attendance.getAttendanceObject().toString() + " ");
-				writer.write(attendance.getAttendanceStatus().toString() +" ");
-				writer.newLine();
-				writer.close();
+				
+				if(!(attendance.getAttendanceClass().equals("")) && !(attendance.getAttendanceDate().equals("")) && !(attendance.getAttendanceObject().equals("")) && !(attendance.getAttendanceStatus().equals(""))) {
+					if(!file.exists()) {
+						file.createNewFile();
+						}
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+					writer.write(attendance.getAttendanceObject().toString() + " ");
+					writer.write(attendance.getAttendanceStatus().toString() +" ");
+					writer.newLine();
+					writer.close();
+				}
+				else {
+					System.out.println("Oops! Please input all items");
+				}
 				}catch(IOException e) {
 					e.printStackTrace();
 					}
@@ -246,13 +275,20 @@ public class DataStorage {
 			
 			try {
 				File file = new File(schedule.getScheduleDate() + schedule.getScheduleClass()+ "scheduleList.txt");
-				if(!file.exists()) {
-					file.createNewFile();
-					}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-				writer.write("- " + schedule.getScheduleContent() + " ");
-				writer.newLine();
-				writer.close();
+				
+				if(!(schedule.getScheduleClass().equals("")) && !(schedule.getScheduleDate().equals(""))) {
+					if(!file.exists()) {
+						file.createNewFile();
+						}
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+					writer.write("- " + schedule.getScheduleContent() + " ");
+					writer.newLine();
+					writer.close();
+				}
+				else {
+					System.out.println("Oops! Please input all items");
+				}
+
 				}catch(IOException e) {
 					e.printStackTrace();
 					}
@@ -445,12 +481,12 @@ public class DataStorage {
 			int i = 0;
 			while(sc.hasNext()) {
 				String className = sc.next();
-				System.out.println("className: " + className);
+				System.out.println("KidName: " + className);
 				System.out.println("========================================\n");
 				++i;
 				}
 			if(i == 0)
-				System.out.println("no class");
+				System.out.println("no kids in a class");
 			}
 		else if(type.equals("waitingList")) {
 			Scanner sc = new Scanner(new File("waitingList.txt"));
@@ -462,7 +498,7 @@ public class DataStorage {
 				++i;
 				}
 			if(i == 0)
-				System.out.println("no class");
+				System.out.println("no waiting user");
 			}
 		
 		else if(type.equals("attendance")) {
@@ -489,7 +525,7 @@ public class DataStorage {
 				++i;
 				}
 			if(i == 0)
-				System.out.println("no attendance");
+				System.out.println("no schedule");
 			}
 		
 	}

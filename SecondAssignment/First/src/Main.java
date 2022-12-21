@@ -34,6 +34,11 @@ public class Main {
 					System.out.println("input belonging kindergartenName : ");
 					sui.setBelongingKindergarten(scan.nextLine());
 					
+					if(sui.getBelongingKindergarten().equals("")) {
+						System.out.println("please enter belonging kindergarten name!");
+						System.exit(0);
+					}
+					
 					cui.showClass();
 					System.out.println("input belonging className : ");
 					sui.setBelongingClass(scan.nextLine());
