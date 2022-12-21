@@ -1,10 +1,11 @@
 package ui;
+import java.util.*;
 
 public class AttendanceUI extends UI{
 	private String attendanceDate;
 	private String attendanceClass;
-	private String attendanceObject;
-	private String attendanceStatus;
+	private ArrayList<String> attendanceObject = new ArrayList<String>();
+	private ArrayList<String> attendanceStatus = new ArrayList<String>();
 	
 	public String getAttendanceDate() {
 		return attendanceDate;
@@ -22,19 +23,20 @@ public class AttendanceUI extends UI{
 		this.attendanceClass = attendanceClass;
 	}
 
-	public String getAttendanceObject() {
+	public ArrayList<String> getAttendanceObject() {
 		return attendanceObject;
 	}
 
-	public void setAttendanceObject(String attendanceObject) {
+	public void setAttendanceObject(ArrayList<String> attendanceObject) {
 		this.attendanceObject = attendanceObject;
 	}
 
-	public String getAttendanceStatus() {
+	public ArrayList<String> getAttendanceStatus() {
 		return attendanceStatus;
 	}
 
-	public void setAttendanceStatus(String attendanceStatus) {
+	public void setAttendanceStatus(ArrayList<String> attendanceStatus) {
 		this.attendanceStatus = attendanceStatus;
 	}
+	
 }

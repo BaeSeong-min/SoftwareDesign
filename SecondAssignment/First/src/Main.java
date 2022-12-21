@@ -93,11 +93,14 @@ public class Main {
 				else if(args[idx].equals("logIn")) {
 					SignInUI iui = new SignInUI();
 					ManageSignIn msi = new ManageSignIn();
-					System.out.println("input id : ");
-					iui.setId(scan.nextLine());
-					System.out.println("input ps : ");
-					iui.setPs(scan.nextLine());
-					msi.checkAccount(iui.getId(), iui.getPs());
+					
+					while(true){
+						System.out.println("input id : ");
+						iui.setId(scan.nextLine());
+						System.out.println("input ps : ");
+						iui.setPs(scan.nextLine());
+						msi.checkAccount(iui.getId(), iui.getPs());
+					}
 				}
 				else if(args[idx].equals("logOut")) {
 					SignOutUI oui = new SignOutUI();
@@ -172,28 +175,38 @@ public class Main {
 				else if(args[idx].equals("writeAttendance")) {
 					WritingAttendanceUI aui = new WritingAttendanceUI();
 					ViewClassUI cui = new ViewClassUI();
+					ArrayList<String> tmp = new ArrayList<String>();
+					ArrayList<String> tmp2 = new ArrayList<String>();
 					System.out.println("input date : ");
 					aui.setAttendanceDate(scan.nextLine());
 					cui.showClass();
 					System.out.println("input class : ");
 					aui.setAttendanceClass(scan.nextLine());
 					cui.showClassKid(aui.getAttendanceClass());
-					System.out.println("input attendance object : ");
-					aui.setAttendanceObject(scan.nextLine());
-					System.out.println("input attendance status : ");
-					aui.setAttendanceStatus(scan.nextLine());
 					
+					System.out.println("input attendance object : ");
+					tmp.add(scan.nextLine());
+					System.out.println("input attendance status : ");
+					tmp2.add(scan.nextLine());
+					
+					
+					aui.setAttendanceObject(tmp);
+					aui.setAttendanceStatus(tmp2);
 					aui.sendAttendance(aui);
 				}
 				else if(args[idx].equals("checkAttendance")) {
 					ViewAttendanceUI aui = new ViewAttendanceUI();
 					ViewClassUI cui = new ViewClassUI();
+					String cname;
+					String date;
 					cui.showClass();
 					System.out.println("input class : ");
-					aui.setAttendanceClass(scan.nextLine());
+					cname = scan.nextLine();
+					aui.setAttendanceClass(cname);
 					System.out.println("input date : ");
-					aui.setAttendanceDate(scan.nextLine());
-					aui.showAttendance();
+					date = scan.nextLine();
+					aui.setAttendanceDate(date);
+					aui.showAttendance(date, cname);
 				}
 				else if(args[idx].equals("writeSchedule")) {
 					WritingScheduleUI sui = new WritingScheduleUI();
@@ -211,12 +224,15 @@ public class Main {
 				else if(args[idx].equals("checkSchedule")) {
 					ViewScheduleUI vsui = new ViewScheduleUI();
 					ViewClassUI vcui = new ViewClassUI();
+					String cname; String date;
 					vcui.showClass();
 					System.out.println("input class : ");
-					vsui.setScheduleClass(scan.nextLine());
+					cname = scan.nextLine();
+					vsui.setScheduleClass(cname);
 					System.out.println("input date : ");
-					vsui.setScheduleDate(scan.nextLine());
-					vsui.showSchedule();
+					date = scan.nextLine();
+					vsui.setScheduleDate(date);
+					vsui.showSchedule(date, cname);
 				}
 					
 			}

@@ -1,5 +1,6 @@
 package dataStore;
 import java.util.*;
+
 import ui.*;
 import java.io.*;
 
@@ -116,7 +117,7 @@ public class DataStorage {
 		System.out.println("insertClass()");
 
 		try {
-			File file = new File("classList.txt"); // r
+			File file = new File("classList.txt");
 			if(!file.exists()) {
 				file.createNewFile();
 			}
@@ -127,16 +128,12 @@ public class DataStorage {
 				writer.newLine();
 			}
 			
-			for(int i = 0; i < className.size(); i++) { // 메모장 생성
+			for(int i = 0; i < className.size(); i++) { 
 				File file2 = new File(className.get(i)+".txt");
 				if(!file2.exists()) {
 					file2.createNewFile();
-				} // 반 메모장만 생성
-				//BufferedWriter writer2 = new BufferedWriter(new FileWriter(file2, true));
+				} 
 			}
-			
-			//for(int i = 0; ) 각가의 반에 대한 클래스 메모장 만들어서 그 안에다가 선생님, 아이들 계정 다 넣기
-			
 			writer.close();
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -209,14 +206,61 @@ public class DataStorage {
 			}
 	}
 	
-	public void insertAttendance(AttendanceUI attendance) {
-		System.out.println("insertAttendance()");
+	public void insertAttendance(AttendanceUI attendance) throws FileNotFoundException {
 		attendanceInfo.add(attendance);
+		Scanner sc = new Scanner(new File("usingAccount.txt"));
+		sc.next(); sc.next(); sc.next(); sc.next();
+		String role = sc.next();
+		if("teacher".equals(role) || "principal".equals(role)) {
+			System.out.println("insertAttendance()");
+			attendanceInfo.add(attendance);
+			
+			try {
+				File file = new File(attendance.getAttendanceDate() + attendance.getAttendanceClass()+ "attendanceList.txt");
+				if(!file.exists()) {
+					file.createNewFile();
+					}
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+				writer.write(attendance.getAttendanceObject().toString() + " ");
+				writer.write(attendance.getAttendanceStatus().toString() +" ");
+				writer.newLine();
+				writer.close();
+				}catch(IOException e) {
+					e.printStackTrace();
+					}
+			}
+		else {
+			System.out.println("Only teacher or principal can write attendance");
+			}
 	}
 	
-	public void insertSchedule(ScheduleUI schedule) {
-		System.out.println("insertSchedule()");
+	public void insertSchedule(ScheduleUI schedule) throws FileNotFoundException {
 		scheduleInfo.add(schedule);
+		
+		Scanner sc = new Scanner(new File("usingAccount.txt"));
+		sc.next(); sc.next(); sc.next(); sc.next();
+		String role = sc.next();
+		if("teacher".equals(role) || "principal".equals(role)) {
+			System.out.println("insertSchedule()");
+			scheduleInfo.add(schedule);
+			
+			try {
+				File file = new File(schedule.getScheduleDate() + schedule.getScheduleClass()+ "scheduleList.txt");
+				if(!file.exists()) {
+					file.createNewFile();
+					}
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+				writer.write("- " + schedule.getScheduleContent() + " ");
+				writer.newLine();
+				writer.close();
+				}catch(IOException e) {
+					e.printStackTrace();
+					}
+			}
+		else {
+			System.out.println("Only teacher or principal can write schedule");
+			}
+		
 	}
 	
 	public void checkExist(String id, String ps) throws IOException{
@@ -247,7 +291,7 @@ public class DataStorage {
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
-				
+				System.exit(0);
 			}
 			sc.nextLine();
 		}
@@ -272,12 +316,6 @@ public class DataStorage {
 		
 		br.close();
 		writer.close();
-		/*
-		for(int i = 0; i < admissionWaiterInfo.size(); i++) {
-			if(name.equals(admissionWaiterInfo.get(i).getName())){
-				admissionWaiterInfo.remove(i);
-			}
-		}*/
 	}
 	
 	public void select(String list, String type) throws IOException{
@@ -425,6 +463,33 @@ public class DataStorage {
 				}
 			if(i == 0)
 				System.out.println("no class");
+			}
+		
+		else if(type.equals("attendance")) {
+			Scanner sc = new Scanner(new File(list + "attendanceList.txt"));
+			int i = 0;
+			while(sc.hasNext()) {
+				String cid = sc.next(); String cst = sc.next();
+				System.out.println("ID: " + cid + "|| Attendance Status: " + cst);
+				System.out.println("========================================\n");
+				++i;
+				}
+			if(i == 0)
+				System.out.println("no attendance");
+			}
+		
+		else if(type.equals("schedule")) {
+			Scanner sc = new Scanner(new File(list + "scheduleList.txt"));
+			int i = 0;
+			while(sc.hasNext()) {
+				sc.next();
+				String content = sc.next();
+				System.out.println("- " + content);
+				System.out.println("========================================\n");
+				++i;
+				}
+			if(i == 0)
+				System.out.println("no attendance");
 			}
 		
 	}
