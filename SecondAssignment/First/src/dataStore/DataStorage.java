@@ -1,6 +1,10 @@
 package dataStore;
 import java.util.*;
 
+import java.nio.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
 import ui.*;
 import java.io.*;
 
@@ -339,19 +343,51 @@ public class DataStorage {
 	
 	public void approve(String name) throws IOException {
 		System.out.println("approve()");
-		String msg;
-		BufferedReader br=new BufferedReader(new FileReader(new File("waitingList.txt")));
-		File file = new File("waitingList.txt");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		while((msg = br.readLine()) != null) {
+		String msg; String msg2;
+		int i = 0;
+		File file2 = new File("waitingList.txt");
+		BufferedReader br2=new BufferedReader(new FileReader(file2));
+
+		File file = new File("waitingListTmp.txt");
+		BufferedWriter writer1 = new BufferedWriter(new FileWriter(file));
+		BufferedReader br1 =new BufferedReader(new FileReader(file));
+
+		while((msg = br2.readLine()) != null) {
 			if(!(msg.equals(name))) {
-				writer.write(msg);
+				writer1.write(msg);
+				writer1.newLine();
 			}
-			writer.newLine();
+			else {
+				i = 1;
+			}
+		}
+		br2.close();
+		writer1.close();
+		BufferedWriter writer2 = new BufferedWriter(new FileWriter(file2));
+		
+		while((msg2 = br1.readLine()) != null) {
+			writer2.write(msg2);
+			writer2.newLine();
 		}
 		
-		br.close();
-		writer.close();
+		if(i == 1) {
+			while((msg2 = br1.readLine()) != null) {
+				writer2.write(msg2);
+				writer2.newLine();
+			}
+			System.out.println("approve success.");
+		}
+		
+		else if(i == 0) {
+			while((msg2 = br1.readLine()) != null) {
+				writer2.write(msg2);
+				writer2.newLine();
+			}
+			System.out.println("Please enter a id which is in the waiting list!");
+		}
+	
+		br1.close();
+		writer2.close();
 	}
 	
 	public void select(String list, String type) throws IOException{
