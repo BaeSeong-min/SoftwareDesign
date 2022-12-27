@@ -23,7 +23,8 @@ javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/manage/*
 javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/ui/*.java
   
 <hr/>
-- how to signUp for principal with registering kindergarten <br/> 
+- how to signUp for principal with registering kindergarten
+(We suppose only one kindergarten) <br/> 
 <h4>java Main signUpForPrincipal</h4> <br/>
 
 Flow:
