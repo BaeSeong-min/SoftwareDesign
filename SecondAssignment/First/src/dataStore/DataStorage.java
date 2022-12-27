@@ -306,7 +306,7 @@ public class DataStorage {
 	public void checkExist(String id, String ps) throws IOException{
 		System.out.println("checkExist()");
 		
-		Scanner sc = new Scanner(new File("account.txt"));
+		Scanner sc = new Scanner(new File("Account.txt"));
 		int i = 0;
 		while(sc.hasNext()) {
 			String idC = sc.next();
