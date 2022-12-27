@@ -5,11 +5,11 @@
 git clone https://github.com/BaeSeong-min/SoftwareDesign.git
 
 - Compile Main.java <br/>
-*javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/Main.java*   
+javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/Main.java*   
       
 <hr/>
 - Compile class in dataStore package <br/>   
-*javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/dataStore/*.java*
+javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/dataStore/*.java*
  
 <hr/>
 - Compile classes in manage package <br/>
