@@ -4,6 +4,9 @@
 - Clone our git repository first: <br/>
 git clone https://github.com/BaeSeong-min/SoftwareDesign.git
 
+- change directory: <br/>
+cd /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src
+
 - Compile Main.java <br/>
 javac /workspace/softWare/src/SoftwareDesign/SecondAssignment/First/src/Main.java*   
       
